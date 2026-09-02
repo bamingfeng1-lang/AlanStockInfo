@@ -2,7 +2,7 @@
 # 为行情简报定时任务提前唤醒 MacBook。
 # 需以 root 运行（pmset schedule 需要 root 权限）。
 # 每次运行会：清掉旧的计划唤醒 → 为今天起未来 10 个工作日，
-# 在 08:59:30 / 11:59:30 / 14:59:30（各比任务提前 30 秒）排入唤醒。
+# 在 08:59:30 / 11:59:30 / 15:29:30（各比任务提前 30 秒）排入唤醒。
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 DIR=/Users/alanba/market-brief
 LOG="$DIR/logs/wake.log"
@@ -15,7 +15,7 @@ LOG="$DIR/logs/wake.log"
     DOW=$(date -v+${d}d '+%u')            # 1..7 (周一..周日)
     [ "$DOW" -gt 5 ] && continue           # 跳过周末
     MDY=$(date -v+${d}d '+%m/%d/%Y')
-    for T in 08:59:30 11:59:30 14:59:30; do
+    for T in 08:59:30 11:59:30 15:29:30; do
       /usr/bin/pmset schedule wake "$MDY $T" 2>&1
     done
   done
